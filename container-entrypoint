@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+#/usr/bin/env $(which bash ash sh | head -1 | xargs basename)
+
+echo ENV-ENTRYPOINT-
+env
+
+echo CMD--
+for i in "$@"; do
+	echo "› $i"
+done
+
+echo STDIN--
+STDIN="$(cat -)"
+echo $STDIN
+echo EXEC--
+"$@" <<< "$STDIN" 
+
+echo ENV-AFTER-EXEC--
+env
+
+echo ^^^
